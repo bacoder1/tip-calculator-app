@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Tip calculator app</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <img class="header-logo" src="./images/logo.svg" alt="SPLITTER">
+  </header>
+
+  <main>
+    <div class="calc-input">
+      <section class="input-section">
+        <div class="section-header">
+          <h3 class="section-title">Bill</h3>
+          <p class="header-error" id="billError">Can't be zero</p>
+        </div>
+        <div class="bill-input-outer">
+          <img class="bill-icon input-icon" src="./images/icon-dollar.svg" alt="">
+          <input class="bill-input" type="number" name="billInput" id="billInput" placeholder="0">
+        </div>
+      </section>
+      <section class="input-section">
+        <div class="section-header">
+          <h3 class="section-title">Select Tip %</h3>
+        </div>
+        <div class="tip-selection">
+          <button type="button" class="tip-option">5%<input type="radio" id="5%" name="tip-option"></button>
+          <button type="button" class="tip-option">10%<input type="radio" id="10%" name="tip-option"></button>
+          <button type="button" class="tip-option">15%<input type="radio" id="15%" name="tip-option"></button>
+          <button type="button" class="tip-option">25%<input type="radio" id="25%" name="tip-option"></button>
+          <button type="button" class="tip-option">50%<input type="radio" id="50%" name="tip-option"></button>
+          <button type="button" class="tip-option custom-option"><input type="radio" id="custom"
+              name="tip-option"><input class="custom-tip" type="text" name="customTip" id="customTip"
+              placeholder="Custom" pattern="[0-9%]"></button>
+        </div>
+      </section>
+      <section class="input-section">
+        <div class="section-header">
+          <h3 class="section-title">Number of People</h3>
+          <p class="header-error" id="peopleError">Can't be zero</p>
+        </div>
+        <div class="people-input-outer">
+          <img class="person-icon input-icon" src="./images/icon-person.svg" alt="">
+          <input class="people-input" type="number" name="peopleInput" id="peopleInput" placeholder="0">
+        </div>
+      </section>
+    </div>
+    <div class="calc-output">
+      <div class="calc-result">
+        <div class="result-title">
+          <h3 class="title-name">Tip Amount</h3>
+          <p class="title-caption">/ person</p>
+        </div>
+        <h3 class="result-number" id="tipPerPersonDisplay">$0.00</h3>
+      </div>
+      <div class="calc-result">
+        <div class="result-title">
+          <h3 class="title-name">Total</h3>
+          <p class="title-caption">/ person</p>
+        </div>
+        <h3 class="result-number" id="totalPerPersonDisplay">$0.00</h3>
+      </div>
+      <button type="button" class="calc-reset" id="calcReset">Reset</button>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+
+  <!-- allow percentage character in custom input -->
+  <script>
+    const inputField = document.querySelector('#customTip');
+
+    let hasPercent = false; // Flag to track if % has been entered
+
+    inputField.addEventListener('keypress', function (event) {
+      const key = event.key;
+      const regex = /[0-9]/; // Only allow numbers
+
+      if (!regex.test(key) && key !== '%') {
+        event.preventDefault(); // Prevent invalid character insertion
+        console.log("error: invalid character ");
+        return;
+      }
+
+      if (key === '%' && !hasPercent) {
+        hasPercent = true; // Allow the first %
+      } else if (key === '%') {
+        event.preventDefault(); // Prevent additional % signs
+        console.log("error: only one percent sign allowed");
+      }
+    });
+  </script>
+</body>
+
+</html>
